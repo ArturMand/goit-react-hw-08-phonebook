@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { Button, Container, Input, Label } from './ContactForm.styled';
 
-const ContactForm = () => (
-  <Container>
+const ContactForm = ({ onSubmitForm }) => (
+  <Container onSubmit={onSubmitForm}>
     <Label>
       name
       <Input
@@ -25,5 +26,7 @@ const ContactForm = () => (
     <Button type="submit">add contact</Button>
   </Container>
 );
-
+ContactForm.propTypes = {
+  onSubmitForm: PropTypes.func.isRequired,
+};
 export default ContactForm;
