@@ -1,5 +1,7 @@
+import PhoneBook from './PhoneBook/PhoneBook';
+
 export const App = () => {
-  return <></>;
+  return <PhoneBook />;
 };
 
 export default App;
