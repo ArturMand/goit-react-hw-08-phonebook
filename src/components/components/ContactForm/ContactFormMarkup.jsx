@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 import { Button, Container, Input, Label } from './ContactForm.styled';
 
-const ContactForm = ({ onSubmitForm }) => (
-  <Container onSubmit={onSubmitForm}>
+const ContactFormMarkup = ({ onSubmit, handleChange, name, value }) => (
+  <Container onSubmit={onSubmit}>
     <Label>
       name
       <Input
         type="text"
         name="name"
+        value={name}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
+        onChange={handleChange}
       />
     </Label>
     <Label htmlFor="">
@@ -18,15 +20,20 @@ const ContactForm = ({ onSubmitForm }) => (
       <Input
         type="tel"
         name="number"
+        value={value}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
+        onChange={handleChange}
       />
     </Label>
     <Button type="submit">add contact</Button>
   </Container>
 );
-ContactForm.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
+ContactFormMarkup.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
-export default ContactForm;
+export default ContactFormMarkup;
