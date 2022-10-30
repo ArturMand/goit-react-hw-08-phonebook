@@ -31,7 +31,7 @@ export default class ContactForm extends Component {
         onSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         name={this.state.name}
-        value={this.state.number}
+        number={this.state.number}
       />
     );
   }

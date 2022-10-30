@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Btn, ListItem, Name, Phone } from './ContactList.styled';
 
-const ContactList = ({ contactList, deleteContact }) => (
+const ContactList = ({ contacts, deleteContact }) => (
   <ul>
-    {contactList.map(({ name, number, id }) => (
+    { contacts.map(({ name, number, id }) => (
       <ListItem key={id}>
         <Name>{name}:</Name>
         <Phone>{number}</Phone>
@@ -18,12 +18,11 @@ const ContactList = ({ contactList, deleteContact }) => (
 
 ContactList.propTypes = {
   deleteContact: PropTypes.func.isRequired,
-  contactList: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })
+  contacts: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired
   ).isRequired,
 };
 export default ContactList;

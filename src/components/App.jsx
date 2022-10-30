@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ContactForm, ContactList, Filter } from './components/index';
-import initialValue from './initialValue';
 import { Container } from './PhoneBook.styled';
 export default class App extends Component {
-  state = initialValue;
+  state = {
+    contact: [],
+    filter: '',
+  };
 
   formSubmitHandler = data => {
-    this.state.contact.some(({ name }) => name === data.name)
+    this.state.contact.some(
+      ({ name }) => name.toLowerCase().trim() === data.name.toLowerCase().trim()
+    )
       ? Notify.failure(`${data.name} is already in contacts`)
       : this.setState({ contact: [...this.state.contact, data] });
   };
-
-  filterContact = e => {
-    this.setState({
-      contact: [...this.state.contact,this.state.contact.filter(
-        ({ name }) => name === this.state.filter
-      )],
-    });
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+  filterContact = () => {
+    const filter = this.state.filter.toLowerCase().trim();
+    const filteredContactList = this.state.contact.filter(({ name }) =>
+      name.toLowerCase().includes(filter)
+    );
+    return filteredContactList;
   };
 
   deleteContact = conactName => {
@@ -32,12 +39,9 @@ export default class App extends Component {
         <ContactForm onSubmit={this.formSubmitHandler} />
 
         <h2>Contacts</h2>
-        <Filter
-          filterContact={this.filterContact}
-          filter={this.state.filter}
-        />
+        <Filter filter={this.state.filter} handleChange={this.handleChange} />
         <ContactList
-          contactList={this.state.contact}
+          contacts={this.filterContact()}
           deleteContact={this.deleteContact}
         />
       </Container>
