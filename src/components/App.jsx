@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { ContactForm, ContactList, Filter } from './components/index';
+import { ContactForm, ContactList, Filter } from './index';
 import { Container } from './PhoneBook.styled';
 export default class App extends Component {
   state = {
