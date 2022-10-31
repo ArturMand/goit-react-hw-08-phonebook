@@ -4,9 +4,7 @@ import ContactFormMarkup from './ContactFormMarkup';
 import { nanoid } from 'nanoid';
 
 export default class ContactForm extends Component {
-  static defaultProps = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+
   state = {
     name: '',
     number: '',
@@ -14,13 +12,13 @@ export default class ContactForm extends Component {
 
   handleChange = e => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value, id: nanoid() });
+    this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.onSubmit(this.state);
-    this.setState({ name: '', number: '' });
+    this.setState({ name: '', number: '', id: nanoid() });
   };
   // checkContactListByName=()=>{
   
@@ -35,4 +33,7 @@ export default class ContactForm extends Component {
       />
     );
   }
+}
+ContactForm.propTypes={
+  onSubmit: PropTypes.func.isRequired,
 }

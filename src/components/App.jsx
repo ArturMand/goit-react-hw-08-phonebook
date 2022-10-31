@@ -27,9 +27,9 @@ export default class App extends Component {
     return filteredContactList;
   };
 
-  deleteContact = conactName => {
+  deleteContact = conactId => {
     this.setState({
-      contact: this.state.contact.filter(({ name }) => name !== conactName),
+      contact: this.state.contact.filter(({ id }) => id !== conactId),
     });
   };
   render() {
