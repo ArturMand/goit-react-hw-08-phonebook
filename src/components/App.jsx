@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ContactForm, ContactList, Filter } from './index';
 import { Container } from './PhoneBook.styled';
+const LS_KEY = 'contacts';
 export default class App extends Component {
   state = {
-    contact: [],
+    contact: JSON.parse(localStorage.getItem(LS_KEY)) ?? [],
     filter: '',
   };
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.contact !== this.state.contact) {
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contact));
+    }
+  }
 
   formSubmitHandler = data => {
     this.state.contact.some(
