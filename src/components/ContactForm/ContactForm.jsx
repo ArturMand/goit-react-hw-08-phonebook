@@ -1,38 +1,42 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ContactFormMarkup from './ContactFormMarkup';
 import { nanoid } from 'nanoid';
 
-export default class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
+export default function ContactForm({ onSubmit }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const handleChange = (inputName, e) => {
+    switch (inputName) {
+      case 'name':
+        setName(e.target.value);
+        break;
+      case 'number':
+        setNumber(e.target.value);
+        break;
+      default:
+        break;
+    }
   };
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit({ ...this.state, id: nanoid() });
-    this.setState({ name: '', number: '' });
+    onSubmit({ name, number, id: nanoid() });
+    setName('');
+    setNumber('');
   };
-  // checkContactListByName=()=>{
 
-  // }
-  render() {
-    return (
-      <ContactFormMarkup
-        onSubmit={this.handleSubmit}
-        handleChange={this.handleChange}
-        name={this.state.name}
-        number={this.state.number}
-      />
-    );
-  }
+  return (
+    <ContactFormMarkup
+      onSubmit={handleSubmit}
+      handleChange={handleChange}
+      name={name}
+      number={number}
+    />
+  );
 }
+
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
