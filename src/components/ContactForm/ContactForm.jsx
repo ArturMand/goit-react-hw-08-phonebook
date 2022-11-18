@@ -4,11 +4,11 @@ import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import { contactsSelector } from 'Redux/selectors/selectors';
 import { Button, Container, Input, Label } from './ContactForm.styled';
-import { addContacts } from 'Redux/contactsSlice/contactsSlice';
+import { addContacts } from '../../Redux/contactsOperation/contactOperations';
 
 export function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const dispatch = useDispatch();
   const contacts = useSelector(contactsSelector);
@@ -17,9 +17,9 @@ export function ContactForm() {
     e.preventDefault();
     contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())
       ? Notify.failure(`${name} is already in contacts`)
-      : dispatch(addContacts({ name, number, id: nanoid() }));
+      : dispatch(addContacts({ name, phone, id: nanoid() }));
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -37,15 +37,15 @@ export function ContactForm() {
         />
       </Label>
       <Label htmlFor="">
-        number
+        phone
         <Input
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={e => setNumber(e.target.value)}
+          onChange={e => setPhone(e.target.value)}
         />
       </Label>
       <Button type="submit">add contact</Button>

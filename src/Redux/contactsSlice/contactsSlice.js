@@ -1,26 +1,66 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  addContacts,
+  deleteContact,
+  fetchContacts,
+} from '../contactsOperation/contactOperations';
+
+const fetchContactsFulfilled = (state, { payload }) => {
+  state.contacts.items = payload;
+  state.isLoading = false;
+  state.error = null;
+};
+
+const addContactFulfilled = (state, { payload }) => {
+  state.contacts.items.push(payload);
+  state.isLoading = false;
+  state.error = null;
+};
+
+const deleteContactFulfilled = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = null;
+  state.contacts.items = state.contacts.items.filter(
+    ({ id }) => id !== payload.id
+  );
+};
+
+const rejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+
+const pending = state => {
+  state.isLoading = true;
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
-    contacts: [],
+    contacts: {
+      items: [],
+      isLoading: false,
+      error: null,
+    },
     filter: '',
   },
   reducers: {
-    addContacts: (state, { payload }) => {
-      state.contacts.push(payload);
-    },
-
-    deleteContacts: (state, { payload }) => {
-      state.contacts = state.contacts.filter(({ id }) => id !== payload);
-    },
-
     filterContact(state, { payload }) {
       state.filter = payload;
     },
   },
+  extraReducers: builder =>
+    builder
+      .addCase(fetchContacts.fulfilled, fetchContactsFulfilled)
+      .addCase(fetchContacts.pending, pending)
+      .addCase(fetchContacts.rejected, rejected)
+      .addCase(addContacts.fulfilled, addContactFulfilled)
+      .addCase(addContacts.pending, pending)
+      .addCase(addContacts.rejected, rejected)
+      .addCase(deleteContact.fulfilled, deleteContactFulfilled)
+      .addCase(deleteContact.pending, pending)
+      .addCase(deleteContact.rejected, rejected),
 });
 
 export default contactsSlice.reducer;
-export const { addContacts, deleteContacts, filterContact } =
-  contactsSlice.actions;
+export const { filterContact } = contactsSlice.actions;
