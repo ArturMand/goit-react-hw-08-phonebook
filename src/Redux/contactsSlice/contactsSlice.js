@@ -7,31 +7,31 @@ import {
 
 const fetchContactsFulfilled = (state, { payload }) => {
   state.contacts.items = payload;
-  state.isLoading = false;
-  state.error = null;
+  state.contacts.isLoading = false;
+  state.contacts.error = null;
 };
 
 const addContactFulfilled = (state, { payload }) => {
   state.contacts.items.push(payload);
-  state.isLoading = false;
-  state.error = null;
+  state.contacts.isLoading = false;
+  state.contacts.error = null;
 };
 
 const deleteContactFulfilled = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = null;
+  state.contacts.isLoading = false;
+  state.contacts.error = null;
   state.contacts.items = state.contacts.items.filter(
     ({ id }) => id !== payload.id
   );
 };
 
 const rejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload;
+  state.contacts.isLoading = false;
+  state.contacts.error = payload;
 };
 
 const pending = state => {
-  state.isLoading = true;
+  state.contacts.isLoading = true;
 };
 
 const contactsSlice = createSlice({
