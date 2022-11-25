@@ -3,7 +3,7 @@ import {
   logIn,
   logOut,
   refreshUser,
-} from '../authOperations/operations.js';
+} from '../authOperations/operations';
 import { createSlice } from '@reduxjs/toolkit';
 
 const rejected = (state, { payload }) => {

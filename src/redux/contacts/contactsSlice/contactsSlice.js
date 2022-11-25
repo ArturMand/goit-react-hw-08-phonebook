@@ -3,7 +3,7 @@ import {
   addContact,
   removeContact,
   fetchContacts,
-} from '../contactsOperation/operations.js';
+} from '../contactsOperation/operations';
 
 const fetchContactsFulfilled = (state, { payload }) => {
   state.contacts.items = payload;
