@@ -1,5 +1,5 @@
-import { filterContact } from '../../redux/contactsSlice/contactsSlice';
-import { getContactsFilter } from '../../redux/contactsSlice/contactsSelectors';
+import { filterContact } from '../../redux/contacts/contactsSlice/contactsSlice';
+import { getContactsFilter } from '../../redux/contacts/contactsSelector/contactsSelectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, TextField, Typography } from '@mui/material';
 const Filter = () => {

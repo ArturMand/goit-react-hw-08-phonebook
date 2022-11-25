@@ -4,8 +4,8 @@ import Filter from 'components/Filter/Filter';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from 'redux/auth/authSelector/authSelector';
-import { getIsContacts } from 'redux/contactsSlice/contactsSelectors';
-import { fetchContacts } from 'redux/contactsSlice/operations';
+import { getIsContacts } from 'redux/contacts/contactsSelector/contactsSelectors';
+import { fetchContacts } from 'redux/contacts/contactsOperation/operations';
 import { Title, Container } from './Contacts.styled';
 const Contacts = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addContact, removeContact, fetchContacts } from './operations.js';
+import {
+  addContact,
+  removeContact,
+  fetchContacts,
+} from '../contactsOperation/operations.js';
 
 const fetchContactsFulfilled = (state, { payload }) => {
   state.contacts.items = payload;

@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import authSlice from './auth/authSlice/authSlice';
-import contactsSlice from './contactsSlice/contactsSlice';
+import contactsSlice from './contacts/contactsSlice/contactsSlice';
 import {
   persistStore,
   persistReducer,

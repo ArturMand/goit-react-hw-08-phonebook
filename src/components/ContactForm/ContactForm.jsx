@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { addContact } from '../../redux/contactsSlice/operations';
+import { addContact } from '../../redux/contacts/contactsOperation/operations';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from '../../redux/contactsSlice/contactsSelectors';
+import { getContacts } from '../../redux/contacts/contactsSelector/contactsSelectors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
