@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from 'redux/auth/authSelector/authSelector';
 import { getIsContacts } from 'redux/contactsSlice/contactsSelectors';
-import { fetchContact } from 'redux/contactsSlice/operations';
+import { fetchContacts } from 'redux/contactsSlice/operations';
 import { Title, Container } from './Contacts.styled';
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Contacts = () => {
   const token = useSelector(getToken);
 
   useEffect(() => {
-    token && dispatch(fetchContact());
+    token && dispatch(fetchContacts());
   }, [dispatch, token]);
 
   return token ? (

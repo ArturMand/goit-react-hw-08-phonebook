@@ -7,15 +7,18 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 
 const handlePending = state => {
-  state.isLoggedIn = true;
+  state.isLoading = true;
 };
 const handleRejected = (state, { payload }) => {
   state.error = payload;
+  state.isLoading = false;
 };
+
 const handleFulfilled = (state, { payload }) => {
   state.user = payload.user;
   state.token = payload.token;
   state.isLoggedIn = true;
+  state.isLoading = false;
 };
 
 const authSlice = createSlice({
@@ -24,6 +27,7 @@ const authSlice = createSlice({
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    isLoading: false,
     error: null,
   },
   extraReducers: builder =>
