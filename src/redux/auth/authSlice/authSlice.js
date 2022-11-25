@@ -6,17 +6,17 @@ import {
 } from '../authOperations/operations';
 import { createSlice } from '@reduxjs/toolkit';
 
-const rejected = (state, { payload }) => {
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, { payload }) => {
   state.error = payload;
 };
-
-// const pending = state => {
-// };
-
 const handleFulfilled = (state, { payload }) => {
   state.user = payload.user;
   state.token = payload.token;
   state.isLoggedIn = true;
+  state.isLoading = false;
 };
 
 const authSlice = createSlice({
@@ -25,22 +25,24 @@ const authSlice = createSlice({
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    isLoading: false,
     error: null,
   },
   extraReducers: builder =>
     builder
-      // .addCase(registration.pending, pending)
-      // .addCase(logIn.pending, pending)
-      // .addCase(logOut.pending, pending)
-      .addCase(registration.rejected, rejected)
-      .addCase(logIn.rejected, rejected)
-      .addCase(logOut.rejected, rejected)
+      .addCase(registration.pending, handlePending)
+      .addCase(logIn.pending, handlePending)
+      .addCase(logOut.pending, handlePending)
+      .addCase(registration.rejected, handleRejected)
+      .addCase(logIn.rejected, handleRejected)
+      .addCase(logOut.rejected, handleRejected)
       .addCase(registration.fulfilled, handleFulfilled)
       .addCase(logIn.fulfilled, handleFulfilled)
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+        state.error = null;
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;

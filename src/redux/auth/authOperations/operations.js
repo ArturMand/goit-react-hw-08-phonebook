@@ -18,7 +18,7 @@ export const registration = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      rejectWithValue(error.message);
     }
   }
 );
@@ -30,7 +30,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      rejectWithValue(error.message);
     }
   }
 );
@@ -41,7 +41,8 @@ export const logOut = createAsyncThunk(
       await axios.post('/users/logout');
       clearAuthHeader();
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.log(error);
+      rejectWithValue(error);
     }
   }
 );
@@ -51,7 +52,7 @@ export const refreshUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+      thunkAPI.rejectWithValue('Unable to fetch user');
     }
 
     try {
@@ -59,7 +60,7 @@ export const refreshUser = createAsyncThunk(
       const res = await axios.get('/users/current');
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      thunkAPI.rejectWithValue(error.message);
     }
   }
 );
