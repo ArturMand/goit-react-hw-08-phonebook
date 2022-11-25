@@ -1,29 +1,46 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'Redux/contactsOperation/contactOperations';
-import { contactsSelector, filterSelector } from 'Redux/selectors/selectors';
-import { Btn, ListItem, Name, Phone } from './ContactList.styled';
 
-export const ContactList = () => {
-  const contacts = useSelector(contactsSelector);
-  const filter = useSelector(filterSelector);
+import { useDispatch, useSelector } from 'react-redux';
+import { removeContact } from '../../redux/contactsSlice/operations';
+import {
+  getContacts,
+  getContactsFilter,
+} from '../../redux/contactsSlice/contactsSelectors';
+import {List,Item, Text, Link, Button } from './ContactList.styled'
+
+const ContactList = () => {
   const dispatch = useDispatch();
 
-  const filteredContacts = () =>
-    contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase())
-    );
+  const filter = useSelector(getContactsFilter);
+  const contacts = useSelector(getContacts);
 
+  const filterContact = () => {
+    const filterName = filter?.toLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filterName)
+    );
+  };
+
+  const filterContactList = filterContact();
   return (
-    <ul>
-      {filteredContacts().map(({ name, phone, id }) => (
-        <ListItem key={id}>
-          <Name>{name}:</Name>
-          <Phone>{phone}</Phone>
-          <Btn type="button" onClick={() => dispatch(deleteContact(id))}>
-            delete
-          </Btn>
-        </ListItem>
+    <List>
+      {filterContactList.map(({ id, name, number }) => (
+        <Item key={id} >
+          <Text>
+            {name}:
+            <Link href={`tel:${number}`}>
+              {number}
+            </Link>
+          </Text>
+          <Button
+            onClick={() => dispatch(removeContact(id))}
+         
+          >
+            Delete
+          </Button>
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };
+
+export default ContactList;
