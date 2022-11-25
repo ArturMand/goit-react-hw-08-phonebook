@@ -7,7 +7,6 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 
 const rejected = (state, { payload }) => {
-  state.isLoading = false;
   state.error = payload;
 };
 
@@ -18,7 +17,6 @@ const handleFulfilled = (state, { payload }) => {
   state.user = payload.user;
   state.token = payload.token;
   state.isLoggedIn = true;
-  state.isLoading = false;
 };
 
 const authSlice = createSlice({
