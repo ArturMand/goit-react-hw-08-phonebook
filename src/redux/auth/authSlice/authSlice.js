@@ -12,7 +12,7 @@ const rejected = (state, { payload }) => {
 };
 
 const pending = state => {
-  state.auth.isLoading = true;
+  state.isLoading = true;
 };
 
 const handleFulfilled = (state, { payload }) => {
