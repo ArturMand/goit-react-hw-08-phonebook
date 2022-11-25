@@ -2,7 +2,10 @@ import { lazy, useEffect } from 'react';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsRefreshing } from 'redux/auth/authSelector/authSelector';
+import {
+  getIsRefreshing,
+  getToken,
+} from 'redux/auth/authSelector/authSelector';
 import { refreshUser } from 'redux/auth/authOperations/operations';
 import Layout from './Layout/Layout';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -15,10 +18,10 @@ const Contacts = lazy(() => import('pages/Contacts'));
 export function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(getIsRefreshing);
-
+  const isToken = useSelector(getToken);
   useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+    isToken && dispatch(refreshUser());
+  }, [dispatch, isToken]);
 
   return (
     <>
