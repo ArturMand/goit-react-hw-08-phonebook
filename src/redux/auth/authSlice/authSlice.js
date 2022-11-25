@@ -11,9 +11,8 @@ const rejected = (state, { payload }) => {
   state.error = payload;
 };
 
-const pending = state => {
-  state.isLoading = true;
-};
+// const pending = state => {
+// };
 
 const handleFulfilled = (state, { payload }) => {
   state.user = payload.user;
@@ -28,14 +27,13 @@ const authSlice = createSlice({
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
-    isLoading: false,
     error: null,
   },
   extraReducers: builder =>
     builder
-      .addCase(registration.pending, pending)
-      .addCase(logIn.pending, pending)
-      .addCase(logOut.pending, pending)
+      // .addCase(registration.pending, pending)
+      // .addCase(logIn.pending, pending)
+      // .addCase(logOut.pending, pending)
       .addCase(registration.rejected, rejected)
       .addCase(logIn.rejected, rejected)
       .addCase(logOut.rejected, rejected)
