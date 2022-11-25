@@ -7,12 +7,12 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 
 const rejected = (state, { payload }) => {
-  state.contacts.isLoading = false;
-  state.contacts.error = payload;
+  state.isLoading = false;
+  state.error = payload;
 };
 
 const pending = state => {
-  state.contacts.isLoading = true;
+  state.isLoading = true;
 };
 
 const handleFulfilled = (state, { payload }) => {
